@@ -11,8 +11,8 @@
         <h1>User Management System</h1>
         <nav>
             <ul>
-                <li><a href="/users">User List</a></li>
-                <li><a href="/users/edit">Add User</a></li>
+                <li><a href="/users" class="<%= path === '/users' ? 'active' : '' %>">User List</a></li>
+                <li><a href="/users/edit" class="<%= path === '/users/edit' ? 'active' : '' %>">Add User</a></li>
             </ul>
         </nav>
     </header>

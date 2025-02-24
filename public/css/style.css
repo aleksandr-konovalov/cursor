@@ -1,14 +1,200 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
+/* ==========================================================================
+   Table of Contents
+   ========================================================================== */
+/*
+ 1. CSS Variables and Base Styles
+ 2. Layout & Container
+ 3. Header & Navigation
+ 4. User List
+ 5. User Details
+ 6. Forms
+ 7. Buttons
+ 8. Performance Optimizations
+ 9. Accessibility
+ 10. Animations
+ 11. Media Queries
+ 12. Print Styles
+ 13. Utility Classes
+*/
+
+/* ==========================================================================
+   1. CSS Variables and Base Styles
+   ========================================================================== */
+:root {
+    /* Colors */
+    --primary-color: #4CAF50;
+    --primary-dark: #2e7d32;
+    --primary-light: #81c784;
+    --accent-color: #ffd54f;
+    --error-color: #f44336;
+    --text-primary: #333;
+    --text-secondary: #666;
+    --text-muted: #999;
+    --background-light: #fff;
+    --background-dark: #f9f9f9;
+    
+    /* Spacing */
+    --spacing-xs: 5px;
+    --spacing-sm: 10px;
+    --spacing-md: 20px;
+    --spacing-lg: 30px;
+    --spacing-xl: 40px;
+    
+    /* Shadows */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.1);
+    
+    /* Border Radius */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+    
+    /* Z-index layers */
+    --z-header: 1000;
+    --z-overlay: 2000;
+    
+    /* Container widths */
+    --container-max-width: 1200px;
+    --container-padding: 20px;
+
+    /* Font sizes */
+    --font-size-base: 16px;
+    --font-size-lg: 18px;
+    --font-size-xl: 24px;
+    --font-size-sm: 14px;
+
+    /* Performance */
+    --gpu-acceleration: translateZ(0);
+    --content-visibility: auto;
+    --content-visibility-auto-flow: 'size';
+    
+    /* Focus */
+    --focus-ring-color: #4CAF50;
+    --focus-ring-width: 3px;
+    
+    /* Touch */
+    --min-touch-target: 44px;
+    --touch-feedback-color: rgba(255, 255, 255, 0.3);
 }
 
+/* Dark mode variables consolidated */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --text-primary: #fff;
+        --text-secondary: #aaa;
+        --text-muted: #666;
+        --background-light: #1e1e1e;
+        --background-dark: #121212;
+        --background-hover: #2a2a2a;
+        --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.2);
+        --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.2);
+        --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.2);
+        --button-hover-bg: rgba(255, 255, 255, 0.1);
+        --error-bg: rgba(244, 67, 54, 0.1);
+        --border-color: #333;
+        --scrollbar-track: #1e1e1e;
+        --scrollbar-thumb: #666;
+        --scrollbar-thumb-hover: #888;
+    }
+}
+
+/* Base HTML elements with performance optimizations */
+html {
+    font-size: var(--font-size-base);
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+    content-visibility: var(--content-visibility);
+}
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: var(--text-primary);
+    background-color: var(--background-light);
+    line-height: 1.5;
+    text-rendering: optimizeLegibility;
+}
+
+/* Performance-optimized image loading */
+img {
+    content-visibility: var(--content-visibility);
+    contain: size layout style paint;
+}
+
+/* ==========================================================================
+   2. Layout & Container
+   ========================================================================== */
+.container {
+    width: 90%;
+    max-width: var(--container-max-width);
+    margin: auto;
+    padding: 0 var(--container-padding);
+    overflow: hidden;
+}
+
+/* ==========================================================================
+   3. Header & Navigation
+   ========================================================================== */
 header {
-    background-color: #4CAF50;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
     color: white;
-    padding: 10px 0;
+    padding: var(--spacing-md) 0;
     text-align: center;
+    box-shadow: var(--shadow-sm);
+    position: relative;
+    z-index: var(--z-header);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+header nav {
+    margin-top: 15px;
+}
+
+header nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+header nav ul li {
+    display: inline-block;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+header nav ul li a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    opacity: 1;
+}
+
+header nav ul li a.active {
+    background-color: rgba(255, 255, 255, 0.2);
+    opacity: 1;
 }
 
 footer {
@@ -21,18 +207,36 @@ footer {
     width: 100%;
 }
 
-.container {
-    width: 80%;
-    margin: auto;
-    overflow: hidden;
-}
-
 .user-list {
+    list-style: none;
+    padding: 0;
     margin: 20px 0;
 }
 
-.user-list button {
-    margin: 5px;
+.user-list li {
+    background-color: #f9f9f9;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-list li span {
+    font-size: 16px;
+    color: #333;
+}
+
+.user-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.user-list li:hover {
+    background-color: #f5f5f5;
 }
 
 .edit-form {
@@ -41,4 +245,1151 @@ footer {
 
 .edit-form input {
     margin: 5px;
+}
+
+.user-details {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    display: flex;
+    overflow: hidden;
+}
+
+.profile-image-container {
+    width: 50%;
+    background-color: #ffd54f;
+    padding: 40px;
+    position: relative;
+}
+
+.profile-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.profile-info {
+    width: 50%;
+    padding: 40px;
+}
+
+.profile-info-section {
+    margin-bottom: 30px;
+}
+
+.profile-info-label {
+    color: #999;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.profile-info-value {
+    color: #333;
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.profile-stats {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 30px;
+}
+
+.stat-item {
+    text-align: left;
+}
+
+.stat-value {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+}
+
+.stat-label {
+    font-size: 14px;
+    color: #999;
+    margin: 0;
+}
+
+.team-section {
+    margin-top: 30px;
+}
+
+.team-members {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.team-member-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.detail-row {
+    margin: 15px 0;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.detail-row label {
+    font-weight: bold;
+    display: inline-block;
+    width: 100px;
+    color: #666;
+}
+
+.detail-row span {
+    color: #333;
+}
+
+.actions {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+    text-align: center;
+}
+
+.button {
+    display: inline-block;
+    padding: 8px 16px;
+    margin: 0 5px;
+    border: none;
+    border-radius: 4px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.button:hover {
+    background-color: #45a049;
+}
+
+.button.delete {
+    background-color: #f44336;
+}
+
+.button.delete:hover {
+    background-color: #da190b;
+}
+
+.button.back {
+    background-color: #666;
+}
+
+.button.back:hover {
+    background-color: #555;
+}
+
+.error-message {
+    background-color: #ffebee;
+    color: #c62828;
+    padding: 12px;
+    margin: 20px 0;
+    border-radius: 4px;
+    border-left: 4px solid #c62828;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #666;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #4CAF50;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.2);
+}
+
+.form-actions {
+    margin-top: 30px;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+}
+
+/* ==========================================================================
+   8. Performance Optimizations
+   ========================================================================== */
+@media screen {
+    * {
+        /* Optimize GPU acceleration */
+        transform: translateZ(0);
+        backface-visibility: hidden;
+        perspective: 1000px;
+    }
+
+    /* Optimize animations */
+    .button,
+    .team-member-avatar,
+    header nav ul li a {
+        will-change: transform;
+        transition: transform var(--transition-fast),
+                   box-shadow var(--transition-fast),
+                   background-color var(--transition-fast);
+    }
+}
+
+/* ==========================================================================
+   9. Accessibility
+   ========================================================================== */
+.skip-to-main {
+    position: absolute;
+    top: -100%;
+    left: 0;
+    z-index: var(--z-overlay);
+    background: var(--primary-color);
+    color: white;
+    padding: var(--spacing-sm) var(--spacing-md);
+    transition: top var(--transition-fast);
+}
+
+.skip-to-main:focus {
+    top: 0;
+}
+
+*:focus-visible {
+    outline: var(--focus-ring-width) solid var(--primary-color);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+}
+
+/* ==========================================================================
+   10. Animations
+   ========================================================================== */
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+@keyframes ripple {
+    to {
+        transform: translate(-50%, -50%) scale(2);
+        opacity: 0;
+    }
+}
+
+/* ==========================================================================
+   11. Media Queries
+   ========================================================================== */
+
+/* Breakpoint Mixins */
+@custom-media --mobile (max-width: 480px);
+@custom-media --tablet (min-width: 481px) and (max-width: 768px);
+@custom-media --desktop (min-width: 769px);
+@custom-media --large-desktop (min-width: 1200px);
+@custom-media --touch (hover: none) and (pointer: coarse);
+@custom-media --hover-device (hover: hover);
+
+/* Mobile First Responsive Design */
+@media (--mobile) {
+    /* Mobile styles */
+    .container {
+        width: 100%;
+        padding: 0 var(--spacing-sm);
+    }
+
+    .user-details {
+        border-radius: 0;
+        margin: 0;
+        box-shadow: none;
+        flex-direction: column;
+    }
+
+    .profile-image-container {
+        width: 100%;
+        aspect-ratio: 4/3;
+        padding: var(--spacing-md);
+    }
+
+    .profile-info {
+        width: 100%;
+        padding: var(--spacing-md);
+    }
+
+    .team-members {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(48px, 1fr));
+        gap: var(--spacing-sm);
+    }
+
+    /* ... other mobile styles ... */
+}
+
+@media (--tablet) {
+    /* Tablet styles */
+    .user-details {
+        max-width: 90%;
+    }
+
+    .profile-image-container {
+        aspect-ratio: 16/9;
+        padding: var(--spacing-lg);
+    }
+
+    /* ... other tablet styles ... */
+}
+
+@media (--desktop) {
+    /* Desktop styles */
+    .container {
+        max-width: var(--container-max-width);
+    }
+
+    /* ... other desktop styles ... */
+}
+
+/* Special Cases */
+@media (orientation: landscape) and (max-height: 450px) {
+    /* Foldable device optimization */
+    .user-details {
+        flex-direction: row;
+        margin: var(--spacing-sm) auto;
+    }
+
+    .profile-image-container {
+        width: 40%;
+        aspect-ratio: auto;
+    }
+
+    .profile-info {
+        width: 60%;
+    }
+}
+
+@media (--touch) {
+    /* Touch device optimization */
+    .button,
+    header nav ul li a,
+    .form-group input,
+    .form-group select {
+        min-height: 44px;
+        padding: var(--spacing-sm) var(--spacing-md);
+        font-size: var(--font-size-base);
+    }
+}
+
+@media (--hover-device) {
+    /* Hover device styles */
+    .button,
+    header nav ul li a,
+    .team-member-avatar {
+        transition: transform var(--transition-fast),
+                   box-shadow var(--transition-fast);
+    }
+
+    .button:hover,
+    header nav ul li a:hover {
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-sm);
+    }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+@media (forced-colors: active) {
+    .button,
+    .profile-image,
+    .team-member-avatar {
+        border: 2px solid ButtonText;
+    }
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+    /* Dark mode styles consolidated here */
+    body {
+        background-color: var(--background-dark);
+        color: var(--text-primary);
+    }
+
+    .user-details,
+    .user-list li {
+        background-color: var(--background-light);
+        box-shadow: var(--shadow-md);
+    }
+
+    .profile-image-container {
+        background-color: var(--background-dark);
+    }
+
+    .form-group input {
+        background-color: var(--background-dark);
+        border-color: var(--text-muted);
+        color: var(--text-primary);
+    }
+
+    /* ... other dark mode styles ... */
+}
+
+/* ==========================================================================
+   12. Print Styles
+   ========================================================================== */
+@media print {
+    @page {
+        margin: 2cm;
+    }
+
+    body {
+        min-width: 992px !important;
+    }
+
+    .user-details {
+        break-inside: avoid;
+        page-break-inside: avoid;
+        box-shadow: none;
+        display: block;
+    }
+
+    .profile-image-container {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+        background: none;
+    }
+
+    .profile-info {
+        width: 100%;
+    }
+
+    .profile-image,
+    .team-member-avatar {
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
+
+    .actions,
+    header nav,
+    footer,
+    .skip-to-main {
+        display: none;
+    }
+}
+
+/* ==========================================================================
+   13. Utility Classes
+   ========================================================================== */
+.visually-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
+.no-scroll {
+    overflow: hidden !important;
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+.full-width {
+    width: 100% !important;
+}
+
+/* Media queries for responsive design */
+@media screen and (max-width: 768px) {
+    .user-details {
+        flex-direction: column;
+        margin: 20px auto;
+    }
+
+    .profile-image-container {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .profile-info {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .profile-stats {
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .actions {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .actions .button {
+        width: 100%;
+        margin: 0;
+    }
+
+    .actions form {
+        width: 100%;
+    }
+
+    .actions form button {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .container {
+        width: 100%;
+        padding: 0 10px;
+    }
+
+    .profile-info-value {
+        font-size: 20px;
+    }
+
+    .stat-value {
+        font-size: 20px;
+    }
+
+    .team-members {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .user-details {
+        border-radius: 0;
+        margin: 0;
+        box-shadow: none;
+    }
+
+    header nav ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    header nav ul li a {
+        display: block;
+        padding: 8px 16px;
+    }
+}
+
+/* Header responsiveness */
+@media screen and (max-width: 600px) {
+    header {
+        padding: 15px 0;
+    }
+
+    header h1 {
+        font-size: 20px;
+    }
+
+    header nav {
+        margin-top: 10px;
+    }
+}
+
+/* User list responsiveness */
+@media screen and (max-width: 600px) {
+    .user-list li {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+
+    .user-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .user-actions a,
+    .user-actions button,
+    .user-actions form {
+        width: 100%;
+    }
+
+    .user-actions form button {
+        width: 100%;
+    }
+}
+
+/* Form responsiveness */
+@media screen and (max-width: 600px) {
+    .form-group input {
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .form-actions .button {
+        width: 100%;
+    }
+}
+
+/* Add smooth transitions for responsive changes */
+.user-details,
+.profile-image-container,
+.profile-info,
+.actions,
+.button,
+.team-members {
+    transition: all 0.3s ease;
+}
+
+/* Improve touch targets for mobile */
+@media (hover: none) and (pointer: coarse) {
+    .button,
+    header nav ul li a,
+    .user-actions a,
+    .user-actions button {
+        min-height: 44px;
+        padding: 12px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .button:active::after,
+    header nav ul li a:active::after,
+    .user-actions a:active::after,
+    .user-actions button:active::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 60%);
+        transform: translate(-50%, -50%) scale(0);
+        animation: ripple 0.5s ease-out;
+    }
+
+    @keyframes ripple {
+        to {
+            transform: translate(-50%, -50%) scale(2);
+            opacity: 0;
+        }
+    }
+
+    .team-member-avatar {
+        position: relative;
+    }
+
+    .team-member-avatar::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 50%;
+        border: 2px solid transparent;
+        transition: border-color 0.2s ease;
+    }
+
+    .team-member-avatar:active::after {
+        border-color: var(--focus-ring-color);
+    }
+}
+
+/* Tablet landscape optimization */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    .user-details {
+        max-width: 90%;
+    }
+
+    .profile-image-container,
+    .profile-info {
+        padding: 30px;
+    }
+}
+
+/* Large screen optimization */
+@media screen and (min-width: 1440px) {
+    .container {
+        max-width: 1400px;
+    }
+
+    .user-details {
+        max-width: 1000px;
+    }
+
+    .profile-info-value {
+        font-size: 28px;
+    }
+}
+
+/* Improve mobile layout */
+@media screen and (max-width: 480px) {
+    body {
+        font-size: 16px;
+    }
+
+    .profile-stats {
+        padding: 15px 0;
+        border-top: 1px solid #eee;
+        border-bottom: 1px solid #eee;
+    }
+
+    .team-section {
+        padding-top: 20px;
+    }
+
+    .profile-image-container {
+        aspect-ratio: 1;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .profile-image {
+        width: 80%;
+        height: 80%;
+        object-fit: cover;
+    }
+}
+
+/* Print styles */
+@media print {
+    .user-details {
+        box-shadow: none;
+        display: block;
+    }
+
+    .profile-image-container {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+        background: none;
+    }
+
+    .profile-info {
+        width: 100%;
+    }
+
+    .actions,
+    header nav,
+    footer {
+        display: none;
+    }
+}
+
+/* Base responsive font sizing */
+html {
+    font-size: 16px;
+}
+
+@media screen and (min-width: 1200px) {
+    html {
+        font-size: 18px;
+    }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+/* Enhanced dark mode */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #121212;
+        color: #fff;
+    }
+
+    .user-details {
+        background-color: #1e1e1e;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    }
+
+    .profile-image-container {
+        background-color: #2d2d2d;
+    }
+
+    .profile-info-value,
+    .stat-value {
+        color: #fff;
+    }
+
+    .profile-info-label,
+    .stat-label {
+        color: #aaa;
+    }
+
+    .user-list li {
+        background-color: #1e1e1e;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .user-list li:hover {
+        background-color: #2a2a2a;
+    }
+
+    .form-group input {
+        background-color: #2a2a2a;
+        border-color: #333;
+        color: #fff;
+    }
+
+    .form-group input:focus {
+        border-color: #4CAF50;
+        box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+    }
+}
+
+/* Improved mobile layout */
+@media screen and (max-width: 480px) {
+    .profile-image-container {
+        aspect-ratio: 4/3;
+        padding: 20px;
+    }
+
+    .profile-image {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    .profile-info-section {
+        margin-bottom: 20px;
+    }
+
+    .team-members {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(48px, 1fr));
+        gap: 15px;
+        justify-items: center;
+    }
+
+    .team-member-avatar {
+        width: 48px;
+        height: 48px;
+        transition: transform 0.2s ease;
+    }
+
+    .team-member-avatar:active {
+        transform: scale(1.1);
+    }
+
+    .stat-item {
+        flex: 1;
+        text-align: center;
+    }
+}
+
+/* Enhanced tablet layout */
+@media screen and (min-width: 481px) and (max-width: 768px) {
+    .profile-image-container {
+        aspect-ratio: 16/9;
+        padding: 30px;
+    }
+
+    .team-members {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+        gap: 20px;
+    }
+
+    .team-member-avatar {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+/* High contrast mode support */
+@media (forced-colors: active) {
+    .button {
+        border: 2px solid ButtonText;
+    }
+
+    .profile-image {
+        border: 2px solid ButtonText;
+    }
+
+    .team-member-avatar {
+        border: 1px solid ButtonText;
+    }
+}
+
+/* Landscape mode optimization */
+@media screen and (max-width: 768px) and (orientation: landscape) {
+    .user-details {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .profile-image-container {
+        width: 40%;
+        aspect-ratio: auto;
+    }
+
+    .profile-info {
+        width: 60%;
+    }
+}
+
+/* Base accessibility improvements */
+:root {
+    --focus-ring-color: #4CAF50;
+    --focus-ring-width: 3px;
+}
+
+*:focus-visible {
+    outline: var(--focus-ring-width) solid var(--focus-ring-color);
+    outline-offset: 2px;
+}
+
+/* Loading state for images */
+.profile-image,
+.team-member-avatar {
+    background-color: #f0f0f0;
+    position: relative;
+}
+
+.profile-image:not([src]),
+.team-member-avatar:not([src]) {
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.6; }
+    100% { opacity: 1; }
+}
+
+/* Enhanced tablet and desktop hover states */
+@media (hover: hover) {
+    .button,
+    header nav ul li a {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .button:hover,
+    header nav ul li a:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .team-member-avatar {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .team-member-avatar:hover {
+        transform: scale(1.1);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+}
+
+/* Improved landscape mode for foldable devices */
+@media screen and (max-width: 768px) and (orientation: landscape) and (max-height: 450px) {
+    .user-details {
+        margin: 10px auto;
+    }
+
+    .profile-image-container {
+        padding: 15px;
+    }
+
+    .profile-info {
+        padding: 15px;
+    }
+
+    .profile-info-section {
+        margin-bottom: 15px;
+    }
+
+    .team-section {
+        margin-top: 15px;
+    }
+}
+
+/* Print optimization for images */
+@media print {
+    .profile-image,
+    .team-member-avatar {
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
+}
+
+/* Scrollbar customization */
+@media screen {
+    ::-webkit-scrollbar {
+        width: 12px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: var(--scrollbar-track, #f1f1f1);
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: var(--scrollbar-thumb, #888);
+        border-radius: 6px;
+        border: 3px solid var(--scrollbar-track, #f1f1f1);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: var(--scrollbar-thumb-hover, #666);
+    }
+
+    @media (prefers-color-scheme: dark) {
+        ::-webkit-scrollbar-track {
+            background: #1e1e1e;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #666;
+            border-color: #1e1e1e;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #888;
+        }
+    }
+}
+
+/* Enhanced mobile grid layout */
+@supports (display: grid) {
+    @media screen and (max-width: 480px) {
+        .team-members {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(48px, 1fr));
+            gap: var(--spacing-sm);
+            align-items: center;
+            justify-items: center;
+        }
+
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing-md);
+        }
+    }
+}
+
+/* Better form controls for touch devices */
+@media (hover: none) and (pointer: coarse) {
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        font-size: 16px;
+        line-height: 1.3;
+        padding: 12px;
+    }
+
+    /* Improve touch targets */
+    input[type="checkbox"],
+    input[type="radio"] {
+        min-width: 24px;
+        min-height: 24px;
+    }
+}
+
+/* Better error states */
+.error-message {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    background-color: rgba(244, 67, 54, 0.1);
+    border-left: 4px solid var(--error-color);
+    padding: var(--spacing-md);
+    margin: var(--spacing-md) 0;
+    border-radius: var(--radius-sm);
+}
+
+/* Print optimization */
+@media print {
+    @page {
+        margin: 2cm;
+    }
+
+    body {
+        min-width: 992px !important;
+    }
+
+    .user-details {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+}
+
+/* Animations */
+@keyframes touch-ripple {
+    0% {
+        transform: scale(0.8);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+/* Loading states */
+.profile-image:not([src]),
+.team-member-avatar:not([src]) {
+    background-color: var(--background-dark);
+    animation: pulse 1.5s infinite;
+}
+
+/* Scrollbar customization */
+@media screen {
+    ::-webkit-scrollbar {
+        width: 12px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: var(--scrollbar-track, #f1f1f1);
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: var(--scrollbar-thumb, #888);
+        border-radius: 6px;
+        border: 3px solid var(--scrollbar-track, #f1f1f1);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: var(--scrollbar-thumb-hover, #666);
+    }
 }

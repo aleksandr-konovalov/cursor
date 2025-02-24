@@ -1,10 +1,20 @@
+/** @type {import('ts-jest').JestConfigWithTsJest} */
 module.exports = {
   preset: 'ts-jest',
-  testEnvironment: 'node',
-  collectCoverage: true,
-  coverageDirectory: 'coverage',
-  testMatch: ['**/src/**/*.test.ts'],
+  testEnvironment: 'jsdom',
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  roots: ['<rootDir>/src'],
+  setupFilesAfterEnv: ['<rootDir>/src/tests/setup.ts'],
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/src/$1'
+  },
+  testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
   transform: {
-    '^.+\\.tsx?$': 'ts-jest'
+    '^.+\\.(ts|tsx)$': ['ts-jest', {
+      tsconfig: 'tsconfig.json'
+    }]
+  },
+  testEnvironmentOptions: {
+    url: 'http://localhost'
   }
 };
