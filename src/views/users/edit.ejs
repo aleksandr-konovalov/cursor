@@ -1,39 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= user.id ? 'Edit User' : 'Add User' %></title>
-    <link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
-    <%- include('../partials/header.ejs') %>
-    
-    <div class="container">
-        <h1 data-testid="page-title"><%= user.id ? 'Edit User' : 'Add User' %></h1>
-        
-        <% if (typeof error !== 'undefined' && error) { %>
-            <div class="error-message" data-testid="error-message">
-                <%= error %>
-            </div>
-        <% } %>
-        
-        <form action="/users/edit/<%= user.id || '' %>" method="POST" class="edit-form" data-testid="edit-form">
-            <div class="form-group">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" value="<%= user.name %>" required data-testid="name-input">
-            </div>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" value="<%= user.email %>" required data-testid="email-input">
-            </div>
-            <div class="form-actions">
-                <button type="submit" class="button" data-testid="save-button">Save</button>
-                <a href="/users" class="button back" data-testid="back-button">Back to List</a>
-            </div>
-        </form>
-    </div>
+<%- contentFor('title') %> <%= user.id ? 'Edit User' : 'Add User' %> <%-
+contentFor('body') %>
+<h1 data-testid="page-title"><%= user.id ? 'Edit User' : 'Add User' %></h1>
 
-    <%- include('../partials/footer.ejs') %>
-</body>
-</html>
+<% if (typeof error !== 'undefined' && error) { %>
+<div class="error-message" data-testid="error-message"><%= error %></div>
+<% } %>
+
+<form
+  action="/users/edit/<%= user.id || '' %>"
+  method="POST"
+  class="edit-form"
+  data-testid="edit-form"
+>
+  <div class="form-group">
+    <label for="name">Name:</label>
+    <input
+      type="text"
+      id="name"
+      name="name"
+      value="<%= user.name %>"
+      required
+      data-testid="name-input"
+    />
+  </div>
+  <div class="form-group">
+    <label for="email">Email:</label>
+    <input
+      type="email"
+      id="email"
+      name="email"
+      value="<%= user.email %>"
+      required
+      data-testid="email-input"
+    />
+  </div>
+  <div class="form-actions">
+    <button type="submit" class="button" data-testid="save-button">Save</button>
+    <a href="/users" class="button back" data-testid="back-button"
+      >Back to List</a
+    >
+  </div>
+</form>

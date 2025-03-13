@@ -1,33 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User List</title>
-    <link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
-    <%- include('../partials/header.ejs') %>
-    
-    <div class="container">
-        <h1 data-testid="page-title">User List</h1>
-        <button onclick="window.location.href='/users/edit'" class="button" data-testid="add-user-button">Add User</button>
-        <ul class="user-list" data-testid="user-list">
-            <% users.forEach(user => { %>
-                <li data-testid="user-item">
-                    <span data-testid="user-info"><%= user.name %> - <%= user.email %></span>
-                    <div class="user-actions">
-                        <a href="/users/details/<%= user.id %>" class="button" data-testid="view-details-button">View Details</a>
-                        <a href="/users/edit/<%= user.id %>" class="button" data-testid="edit-button">Edit</a>
-                        <form action="/users/remove/<%= user.id %>" method="POST" style="display: inline;">
-                            <button type="submit" class="button delete" data-testid="delete-button">Remove</button>
-                        </form>
-                    </div>
-                </li>
-            <% }) %>
-        </ul>
+<%- contentFor('title') %> User List <%- contentFor('body') %>
+<h1 data-testid="page-title">User List</h1>
+<button
+  onclick="window.location.href='/users/edit'"
+  class="button"
+  data-testid="add-user-button"
+>
+  Add User
+</button>
+<ul class="user-list" data-testid="user-list">
+  <% users.forEach(user => { %>
+  <li data-testid="user-item">
+    <span data-testid="user-info"><%= user.name %> - <%= user.email %></span>
+    <div class="user-actions">
+      <a
+        href="/users/details/<%= user.id %>"
+        class="button"
+        data-testid="view-details-button"
+        >View Details</a
+      >
+      <a
+        href="/users/edit/<%= user.id %>"
+        class="button"
+        data-testid="edit-button"
+        >Edit</a
+      >
+      <form
+        action="/users/remove/<%= user.id %>"
+        method="POST"
+        style="display: inline"
+      >
+        <button type="submit" class="button delete" data-testid="delete-button">
+          Remove
+        </button>
+      </form>
     </div>
-
-    <%- include('../partials/footer.ejs') %>
-</body>
-</html>
+  </li>
+  <% }) %>
+</ul>
